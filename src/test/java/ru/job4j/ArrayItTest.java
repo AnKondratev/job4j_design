@@ -1,6 +1,8 @@
-package ru.job4j.iterator;
+package ru.job4j;
 
 import org.junit.jupiter.api.Test;
+import ru.job4j.iterator.ArrayIt;
+
 import static org.assertj.core.api.Assertions.*;
 
 class ArrayItTest {
