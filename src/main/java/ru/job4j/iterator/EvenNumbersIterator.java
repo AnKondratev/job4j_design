@@ -12,26 +12,12 @@ public class EvenNumbersIterator implements Iterator<Integer> {
         this.data = data;
     }
 
-    public boolean checkOutOfBounds() {
-        return index < data.length;
-    }
-
-    public boolean oddNumber() {
-        if (checkOutOfBounds()) {
-            return data[index] % 2 != 0;
-        }
-        return true;
-    }
-
     @Override
     public boolean hasNext() {
-        while (oddNumber()) {
+        while (index < data.length && data[index] % 2 != 0) {
             index++;
-            if (!checkOutOfBounds()) {
-                return false;
-            }
         }
-        return true;
+        return index < data.length;
     }
 
     @Override
@@ -39,7 +25,7 @@ public class EvenNumbersIterator implements Iterator<Integer> {
         if (!hasNext()) {
             throw new NoSuchElementException();
         }
-        while (oddNumber()) {
+        while (index < data.length && data[index] % 2 != 0) {
             index++;
         }
         return data[index++];
