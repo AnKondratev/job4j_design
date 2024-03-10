@@ -11,7 +11,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
         container = (T[]) new Object[capacity];
     }
 
-    public T[] dynamicArray() {
+    private T[] dynamicArray() {
         return Arrays.copyOf(container,
                 container.length > 0 ? container.length * 2 : 1);
     }
