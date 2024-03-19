@@ -2,8 +2,10 @@ package ru.job4j.collection;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -32,6 +34,20 @@ class ForwardLinkedTest {
         assertThat(list).containsExactly(1, 2);
         list.add(3);
         assertThat(list).containsExactly(1, 2, 3);
+    }
+
+    @Test
+    void checkAddFirst() {
+        assertThat(list).containsExactly(1, 2);
+        list.addFirst(3);
+        assertThat(list).containsExactly(3, 1, 2);
+    }
+
+    @Test
+    void checkAddFirstInEmptyList() {
+        ForwardLinked<Integer> emptyList = new ForwardLinked<>();
+        emptyList.addFirst(3);
+        assertThat(emptyList).containsExactly(3);
     }
 
     @Test
