@@ -33,9 +33,10 @@ public class ListUtils {
         if (list.isEmpty()) {
             throw new NoSuchElementException("List is empty");
         }
-        for (T t : list) {
-            if (filter.test(t)) {
-                list.remove(t);
+        ListIterator<T> iterator = list.listIterator();
+        while (iterator.hasNext()) {
+            if (filter.test(iterator.next())) {
+                iterator.remove();
             }
         }
     }
@@ -44,9 +45,10 @@ public class ListUtils {
         if (list.isEmpty()) {
             throw new NoSuchElementException("List is empty");
         }
-        for (int i = 0; i < list.size(); i++) {
-            if (filter.test(list.get(i))) {
-                list.set(i, value);
+        ListIterator<T> iterator = list.listIterator();
+        while (iterator.hasNext()) {
+            if (filter.test(iterator.next())) {
+                iterator.set(value);
             }
         }
     }
@@ -55,11 +57,10 @@ public class ListUtils {
         if (list.isEmpty()) {
             throw new NoSuchElementException("List is empty");
         }
-        for (int i = 0; i < list.size(); i++) {
-            for (T element : elements) {
-                if (list.get(i).equals(element)) {
-                    list.remove(i);
-                }
+        ListIterator<T> iterator = list.listIterator();
+        while (iterator.hasNext()) {
+            if (elements.contains(iterator.next())) {
+                iterator.remove();
             }
         }
     }
