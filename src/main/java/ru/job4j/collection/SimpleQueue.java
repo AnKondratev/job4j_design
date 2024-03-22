@@ -10,26 +10,22 @@ public class SimpleQueue<T> {
     private int sizeOutput;
 
     public T poll() {
-        try {
-            sizeInput--;
-            return input.pop();
-        } catch (NoSuchElementException e) {
+        if (sizeInput == 0 && sizeOutput == 0) {
             throw new NoSuchElementException("Queue is empty");
         }
+        if (sizeOutput == 0) {
+            while (sizeInput > 0) {
+                output.push(input.pop());
+                sizeOutput++;
+                sizeInput--;
+            }
+        }
+        sizeOutput--;
+        return output.pop();
     }
 
     public void push(T value) {
-        while (sizeInput > 0) {
-            output.push(input.pop());
-            sizeInput--;
-            sizeOutput++;
-        }
         input.push(value);
         sizeInput++;
-        while (sizeOutput > 0) {
-            input.push(output.pop());
-            sizeOutput--;
-            sizeInput++;
-        }
     }
 }
