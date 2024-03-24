@@ -1,9 +1,9 @@
 package ru.job4j.collection;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
-import java.util.NoSuchElementException;
 
 class RevertLinkedTest {
     private RevertLinked<Integer> linked;
@@ -33,5 +33,15 @@ class RevertLinkedTest {
         assertThat(linked).containsSequence(1, 2, 3, 4);
         assertThat(linked.revert()).isTrue();
         assertThat(linked).containsSequence(4, 3, 2, 1);
+    }
+
+    @Test
+    void whenRevertFalse() {
+        assertThat(linked.revert()).isEqualTo(false);
+    }
+
+    @Test
+    void  whenRevertEmptyList() {
+        assertThat(linked.revert()).isEqualTo(false);
     }
 }
