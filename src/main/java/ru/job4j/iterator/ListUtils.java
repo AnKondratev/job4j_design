@@ -19,9 +19,10 @@ public class ListUtils {
         if (list.isEmpty()) {
             throw new NoSuchElementException("List is empty");
         }
-        while (list.listIterator().hasNext()) {
-            if (filter.test(list.listIterator().next())) {
-                list.listIterator().remove();
+           ListIterator<T> iterator = list.listIterator();
+        while (iterator.hasNext()) {
+            if (filter.test(iterator.next())) {
+                iterator.remove();
             }
         }
     }
@@ -30,9 +31,10 @@ public class ListUtils {
         if (list.isEmpty()) {
             throw new NoSuchElementException("List is empty");
         }
-        while (list.listIterator().hasNext()) {
-            if (filter.test(list.listIterator().next())) {
-                list.listIterator().set(value);
+        ListIterator<T> iterator = list.listIterator();
+        while (iterator.hasNext()) {
+            if (filter.test(iterator.next())) {
+                iterator.set(value);
             }
         }
     }
