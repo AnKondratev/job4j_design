@@ -23,7 +23,8 @@ public class SimpleArraySet<T> implements SimpleSet<T> {
         boolean result = false;
         for (T element : this) {
             if (Objects.equals(value, element)) {
-                result = Objects.equals(value, element);
+                result = true;
+                break;
             }
         }
         return result;
