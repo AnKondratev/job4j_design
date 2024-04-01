@@ -28,13 +28,13 @@ public class NonCollisionMap<K, V> implements SimpleMap<K, V> {
 
     @Override
     public boolean put(K key, V value) {
-        double countf = count;
-        if ((countf / capacity) >= LOAD_FACTOR) {
+        if ((count * 1.0 / capacity) >= LOAD_FACTOR) {
             expand();
         }
+        int index = index(key);
         boolean result = false;
-        if (table[index(key)] == null) {
-            table[index(key)] = new MapEntry<>(key, value);
+        if (table[index] == null) {
+            table[index] = new MapEntry<>(key, value);
             count++;
             modCount++;
             result = true;
@@ -52,16 +52,18 @@ public class NonCollisionMap<K, V> implements SimpleMap<K, V> {
     }
 
     private boolean keyEqualityCheck(K key) {
-        return (key == null && table[index(key)].key == null)
-                || (key != null && key.equals(table[index(key)].key));
+        int index = index(key);
+        return (key == null && table[index].key == null)
+                || (key != null && key.equals(table[index].key));
     }
 
     @Override
     public V get(K key) {
+        int index = index(key);
         V result = null;
-        if (table[index(key)] != null) {
+        if (table[index] != null) {
             if (keyEqualityCheck(key)) {
-                result = table[index(key)].value;
+                result = table[index].value;
             }
         }
         return result;
@@ -69,10 +71,11 @@ public class NonCollisionMap<K, V> implements SimpleMap<K, V> {
 
     @Override
     public boolean remove(K key) {
+        int index = index(key);
         boolean result = false;
-        if (table[index(key)] != null) {
+        if (table[index] != null) {
             if (keyEqualityCheck(key)) {
-                table[index(key)] = null;
+                table[index] = null;
                 count--;
                 modCount++;
                 result = true;
