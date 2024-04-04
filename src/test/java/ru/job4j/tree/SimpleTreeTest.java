@@ -42,4 +42,25 @@ public class SimpleTreeTest {
         assertThat(tree.add(2, 3)).isTrue();
         assertThat(tree.add(2, 3)).isFalse();
     }
+
+    @Test
+    void whenNotBinaryTree() {
+        var simpleTree = new SimpleTree<>(1);
+        simpleTree.add(1, 2);
+        simpleTree.add(1, 3);
+        simpleTree.add(1, 4);
+        simpleTree.add(4, 5);
+        simpleTree.add(5, 6);
+        assertThat(simpleTree.isBinary()).isFalse();
+    }
+
+    @Test
+    void whenBinaryTree() {
+        var simpleTree = new SimpleTree<>(1);
+        simpleTree.add(1, 2);
+        simpleTree.add(1, 3);
+        simpleTree.add(3, 5);
+        simpleTree.add(5, 6);
+        assertThat(simpleTree.isBinary()).isTrue();
+    }
 }
