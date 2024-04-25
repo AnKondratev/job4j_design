@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class LogFilter {
@@ -15,10 +14,10 @@ public class LogFilter {
     }
 
     public List<String> filter() {
-        var resultList = new ArrayList<String>();
+        List<String> resultList = new ArrayList<>();
         try (BufferedReader input = new BufferedReader(new FileReader("data/log.txt"))) {
-            input.lines()
-                    .filter(line -> Arrays.asList(line.split(" ")).contains("404"))
+            input.lines().filter(line -> line.split(" ").length >= 2
+                            && line.split(" ")[line.split(" ").length - 2].equals("404"))
                     .forEach(resultList::add);
         } catch (IOException e) {
             e.printStackTrace();
