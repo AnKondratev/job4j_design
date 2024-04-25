@@ -14,15 +14,18 @@ public class LogFilter {
     }
 
     public List<String> filter() {
-        List<String> resultList = new ArrayList<>();
+        var result = new ArrayList<String>();
         try (BufferedReader input = new BufferedReader(new FileReader("data/log.txt"))) {
-            input.lines().filter(line -> line.split(" ").length >= 2
-                            && line.split(" ")[line.split(" ").length - 2].equals("404"))
-                    .forEach(resultList::add);
+            for (String line : input.lines().toList()) {
+                String[] words = line.split(" ");
+                if (words[words.length - 2].equals("404")) {
+                    result.add(line);
+                }
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return resultList;
+        return result;
     }
 
     public static void main(String[] args) {
