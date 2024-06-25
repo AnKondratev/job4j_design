@@ -11,8 +11,8 @@ import java.util.function.Predicate;
 
 public class SearchFiles implements FileVisitor<Path> {
 
-    List<Path> linesList = new ArrayList<>();
-    Predicate<Path> condition;
+    private List<Path> linesList = new ArrayList<>();
+    private Predicate<Path> condition;
 
     public SearchFiles(Predicate<Path> condition) {
         this.condition = condition;
@@ -25,7 +25,9 @@ public class SearchFiles implements FileVisitor<Path> {
 
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-        linesList.add(file);
+        if (condition.test(file)) {
+            linesList.add(file);
+        }
         return FileVisitResult.CONTINUE;
     }
 
@@ -40,6 +42,6 @@ public class SearchFiles implements FileVisitor<Path> {
     }
 
     public List<Path> getPaths() {
-        return linesList.stream().filter(condition).toList();
+        return linesList;
     }
 }
